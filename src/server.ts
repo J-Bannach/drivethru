@@ -1,16 +1,14 @@
-const readline = require("readline").createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+import { askForMainPassword } from "./utils/questions";
+import { isMainPasswordValid } from "./utils/validation";
 
-// readline.question(`What's your name?`, (name: string) => {
-//   console.log(`Hi ${name}!`);
-//   readline.close();
-// });
+const start = async () => {
+  /* Solution with while */
+  let mainPassword = await askForMainPassword();
+  while (!isMainPasswordValid(mainPassword)) {
+    console.log("Is invalid");
+    mainPassword = await askForMainPassword();
+  }
+  console.log("Is valid");
+};
 
-readline.question(`Which password do you want to use?`, (password: string) => {
-  readline.question(`What do you want to do with it?`, (command: string) => {
-    console.log(`Please ${command} this password: ${password}`);
-    readline.close();
-  });
-});
+start();
