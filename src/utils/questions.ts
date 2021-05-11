@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { Command } from "../types";
+import { Command, Selection } from "../types";
 
 export const askForMainPassword = async (): Promise<string> => {
   const answers = await inquirer.prompt<{ mainPassword: string }>([
@@ -37,3 +37,16 @@ export const chooseCommand = async (): Promise<Command> => {
 //     ])
 //     .then((answers) => answers.mainPassword);
 // };
+
+export const listCredentialServices = async (): Promise<Selection> => {
+  const choices = await inquirer.prompt<{ selection: Selection }>({
+    type: "list",
+    name: "selection",
+    message: " Please select action",
+    choices: [
+      { name: "Reset password", value: "reset" },
+      { name: "Create new account", value: "create" },
+    ],
+  });
+  return choices.selection;
+};

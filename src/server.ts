@@ -1,4 +1,8 @@
-import { askForMainPassword, chooseCommand } from "./utils/questions";
+import {
+  askForMainPassword,
+  chooseCommand,
+  listCredentialServices,
+} from "./utils/questions";
 import { isMainPasswordValid } from "./utils/validation";
 
 // function start() {
@@ -22,6 +26,16 @@ const start = async () => {
       break;
   }
 
+  const selection = await listCredentialServices();
+
+  switch (selection) {
+    case "reset":
+      console.log("Reset password");
+      break;
+    case "create":
+      console.log("Create new password");
+      break;
+  }
   /* Solution with recursion */
   //   const mainPassword = await askForMainPassword();
   //   if (!isMainPasswordValid(mainPassword)) {
