@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { Command } from "../types";
+import { Command, Credential } from "../types";
 
 export const askForMainPassword = async (): Promise<string> => {
   const answers = await inquirer.prompt<{ mainPassword: string }>([
@@ -34,40 +34,48 @@ export const chooseService = async (services: string[]): Promise<string> => {
     choices: services,
   });
   return answers.service;
+};
+// export const askForMainPassword = (): Promise<string> => {
+//   return inquirer
+//     .prompt<{ mainPassword: string }>([
+//       {
+//         type: "password",
+//         name: "mainPassword",
+//         message: "Enter main password （⊙ｏ⊙)",
+//       },
+//     ])
+//     .then((answers) => answers.mainPassword);
+// };
 
-  // export const askForMainPassword = (): Promise<string> => {
-  //   return inquirer
-  //     .prompt<{ mainPassword: string }>([
-  //       {
-  //         type: "password",
-  //         name: "mainPassword",
-  //         message: "Enter main password （⊙ｏ⊙)",
-  //       },
-  //     ])
-  //     .then((answers) => answers.mainPassword);
-  // };
+// export const listCredentialServices = async (): Promise<Selection> => {
+//   const choices = await inquirer.prompt<{ selection: Selection }>({
+//     type: "list",
+//     name: "selection",
+//     message: " Please select platform",
+//     choices: [
+//       { name: "Gmail Login", value: "gmail" },
+//       { name: "GitHub Login", value: "github" },
+//     ],
+//   });
+//   return choices.selection;
 
-  // export const listCredentialServices = async (): Promise<Selection> => {
-  //   const choices = await inquirer.prompt<{ selection: Selection }>({
-  //     type: "list",
-  //     name: "selection",
-  //     message: " Please select platform",
-  //     choices: [
-  //       { name: "Gmail Login", value: "gmail" },
-  //       { name: "GitHub Login", value: "github" },
-  //     ],
-  //   });
-  //   return choices.selection;
-
-  // export const addNewCredentials = async (): Promise<Input> => {
-  //   const newCred = await inquirer.prompt<{ input: String }>({
-  //     type: "input",
-  //     name: "input",
-  //     message: "Please enter new credentials",
-  //     choices: [
-  //       {name: "Add new", value: "new"},
-  //     ],
-  //   });
-  //   return.newCred.input;
-  // }
+export const addNewCredential = async (): Promise<Credential> => {
+  const answers = await inquirer.prompt<Credential>([
+    {
+      type: "input",
+      name: "credential",
+      message: "Please enter new credential",
+    },
+    {
+      type: "input",
+      name: "username",
+      message: "Please enter user name",
+    },
+    {
+      type: "password",
+      name: "password",
+      message: "Please enter password",
+    },
+  ]);
+  return answers;
 };

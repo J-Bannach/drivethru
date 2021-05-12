@@ -1,4 +1,5 @@
 import {
+  addNewCredential,
   askForMainPassword,
   chooseCommand,
   chooseService,
@@ -17,7 +18,6 @@ const start = async () => {
   console.log("Is valid");
 
   const command = await chooseCommand();
-
   switch (command) {
     case "list":
       {
@@ -26,7 +26,10 @@ const start = async () => {
       }
       break;
     case "add":
-      console.log("Add Case");
+      {
+        const newCredential = await addNewCredential();
+        console.log(newCredential);
+      }
       break;
   }
 };
