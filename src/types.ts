@@ -1,2 +1,3 @@
 export type Command = "list" | "add";
-export type Selection = "reset" | "create";
+export type Selection = "gmail" | "github";
+export type Input = "new";

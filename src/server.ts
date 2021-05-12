@@ -29,22 +29,31 @@ const start = async () => {
   const selection = await listCredentialServices();
 
   switch (selection) {
-    case "reset":
-      console.log("Reset password");
+    case "gmail":
+      console.log("Log into Gmail");
       break;
-    case "create":
-      console.log("Create new password");
+    case "github":
+      console.log("Log into GitHub");
       break;
   }
-  /* Solution with recursion */
-  //   const mainPassword = await askForMainPassword();
-  //   if (!isMainPasswordValid(mainPassword)) {
-  //     console.log('Is invalid');
-  //     start(); // Recursion
-  //   } else {
-  //     console.log('Is valid');
-  //   }
-  /* ToDo */
-  // askForCommand();
+
+  // const input = await addNewCredentials();
+
+  // switch (input) {
+  //   case "new":
+  //     console.log("Add new credentials");
+  //     break;
+  // }
 };
 start();
+
+/* Solution with recursion */
+//   const mainPassword = await askForMainPassword();
+//   if (!isMainPasswordValid(mainPassword)) {
+//     console.log('Is invalid');
+//     start(); // Recursion
+//   } else {
+//     console.log('Is valid');
+//   }
+/* ToDo */
+// askForCommand();

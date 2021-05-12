@@ -42,11 +42,23 @@ export const listCredentialServices = async (): Promise<Selection> => {
   const choices = await inquirer.prompt<{ selection: Selection }>({
     type: "list",
     name: "selection",
-    message: " Please select action",
+    message: " Please select platform",
     choices: [
-      { name: "Reset password", value: "reset" },
-      { name: "Create new account", value: "create" },
+      { name: "Gmail Login", value: "gmail" },
+      { name: "GitHub Login", value: "github" },
     ],
   });
   return choices.selection;
+
+  // export const addNewCredentials = async (): Promise<Input> => {
+  //   const newCred = await inquirer.prompt<{ input: String }>({
+  //     type: "input",
+  //     name: "input",
+  //     message: "Please enter new credentials",
+  //     choices: [
+  //       {name: "Add new", value: "new"},
+  //     ],
+  //   });
+  //   return.newCred.input;
+  // }
 };
