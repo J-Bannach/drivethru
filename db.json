@@ -1,7 +1,0 @@
-{
-  "credentials": [
-    { "service": "Google", "username": "Johanna", "password": "AbC" },
-    { "service": "GitHub", "username": "Johanna", "password": "xYz" },
-    { "service": "Instagram", "username": "JohannaB", "password": "Click" }
-  ]
-}
