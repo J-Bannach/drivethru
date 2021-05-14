@@ -63,7 +63,7 @@ export const addNewCredential = async (): Promise<Credential> => {
   const answers = await inquirer.prompt<Credential>([
     {
       type: "input",
-      name: "credential",
+      name: "service",
       message: "Please enter new credential",
     },
     {
