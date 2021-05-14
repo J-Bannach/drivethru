@@ -6,6 +6,7 @@ import {
 } from "./utils/questions";
 import { isMainPasswordValid } from "./utils/validation";
 import { printPassword } from "./utils/messages";
+import { readCredentials } from "./utils/credentials";
 
 // function start() {
 const start = async () => {
@@ -18,10 +19,19 @@ const start = async () => {
   console.log("Is valid");
 
   const command = await chooseCommand();
+
   switch (command) {
     case "list":
       {
-        const service = await chooseService(["Google", "GitHub", "Instagram"]);
+        const credentials = await readCredentials();
+        const credentialServices = credentials.map(
+          (credential) => credential.service
+        );
+        const service = await chooseService(credentialServices);
+        const selectedService = credentials.find(
+          (credential) => credential.service === service
+        );
+        console.log(selectedService);
         printPassword(service);
       }
       break;
