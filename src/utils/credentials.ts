@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import type { Credential } from "../types";
+import AES from "crypto-js/aes";
 
 type DB = {
   credentials: Credential[];
@@ -16,6 +17,14 @@ export const writeCredentials = async (
 ): Promise<void> => {
   const allCredentials = await readCredentials();
   allCredentials.push(newCredential);
-  const dbJSON = JSON.stringify({ credentials: allCredentials }, null, 2);
-  await fs.writeFile("./db.json", dbJSON);
+  const encrypted = AES.encrypt(
+    newCredential.password,
+    "DonaldDuck"
+  ).toString();
+  newCredential.password = encrypted;
+  await fs.writeFile(
+    "./db.json",
+    JSON.stringify({ credentials: allCredentials }, null, 2),
+    "utf-8"
+  );
 };
