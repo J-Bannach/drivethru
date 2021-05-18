@@ -8,8 +8,10 @@ import {
 import { isMainPasswordValid } from "./utils/validation";
 import { readCredentials, writeCredentials } from "./utils/credentials";
 import { connectDatabase } from "./utils/database";
+import CryptoJS from "crypto-js";
 
 dotenv.config();
+
 
 // function start() {
 const start = async () => {
@@ -39,16 +41,28 @@ const start = async () => {
         const selectedService = credentials.find(
           (credential) => credential.service === service
         );
-        console.log(selectedService);
+
+        if (selectedService) {
+          const decrypted = CryptoJS.AES.decrypt(
+            selectedService.password,
+            "DonaldDuck"
+          );
+          console.log(
+            `*** Your password for ${
+              selectedService.service
+            } is ${decrypted.toString(CryptoJS.enc.Utf8)}***`
+          );
+        }
       }
+
       break;
     case "add":
       {
         const newCredential = await addNewCredential();
-        console.log(newCredential);
         await writeCredentials(newCredential);
       }
       break;
   }
 };
+
 start();
