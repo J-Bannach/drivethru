@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import {
   addNewCredential,
   askForMainPassword,
@@ -7,8 +8,15 @@ import {
 import { isMainPasswordValid } from "./utils/validation";
 import { readCredentials, writeCredentials } from "./utils/credentials";
 
+dotenv.config();
+
 // function start() {
+// const databaseURI =
+//   "mongodb+srv://johanna-b:<pg.bew3P!CS7R-.>@clusterjb.oynux.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
 const start = async () => {
+  await connectDatabase(process.env.MONGO_URL);
+
   /* Solution with while */
   let mainPassword = await askForMainPassword();
   while (!(await isMainPasswordValid(mainPassword))) {
