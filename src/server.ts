@@ -7,11 +7,10 @@ import {
 } from "./utils/questions";
 import { isMainPasswordValid } from "./utils/validation";
 import { readCredentials, writeCredentials } from "./utils/credentials";
-import { connectDatabase } from "./utils/database";
 import CryptoJS from "crypto-js";
+import { connectDatabase, disconnectDatabase } from "./utils/database";
 
 dotenv.config();
-
 
 // function start() {
 const start = async () => {
@@ -63,6 +62,7 @@ const start = async () => {
       }
       break;
   }
+  await disconnectDatabase();
 };
 
 start();
