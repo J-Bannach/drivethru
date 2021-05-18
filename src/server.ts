@@ -7,6 +7,7 @@ import {
 } from "./utils/questions";
 import { isMainPasswordValid } from "./utils/validation";
 import { readCredentials, writeCredentials } from "./utils/credentials";
+import { connectDatabase } from "./utils/database";
 
 dotenv.config();
 
@@ -15,6 +16,9 @@ dotenv.config();
 //   "mongodb+srv://johanna-b:<pg.bew3P!CS7R-.>@clusterjb.oynux.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 const start = async () => {
+  if (process.env.MONGO_URL === undefined) {
+    throw new Error("Missing env MONGO_URL");
+  }
   await connectDatabase(process.env.MONGO_URL);
 
   /* Solution with while */
