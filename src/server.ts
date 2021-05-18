@@ -12,9 +12,6 @@ import { connectDatabase } from "./utils/database";
 dotenv.config();
 
 // function start() {
-// const databaseURI =
-//   "mongodb+srv://johanna-b:<pg.bew3P!CS7R-.>@clusterjb.oynux.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
 const start = async () => {
   if (process.env.MONGO_URL === undefined) {
     throw new Error("Missing env MONGO_URL");
