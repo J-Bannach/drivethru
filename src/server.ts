@@ -42,15 +42,16 @@ const start = async () => {
         );
 
         if (selectedService) {
-          const decrypted = CryptoJS.AES.decrypt(
+          selectedService.password = CryptoJS.AES.decrypt(
             selectedService.password,
             "DonaldDuck"
-          );
-          console.log(
-            `*** Your password for ${
-              selectedService.service
-            } is ${decrypted.toString(CryptoJS.enc.Utf8)}***`
-          );
+          ).toString(CryptoJS.enc.Utf8);
+          console.log(selectedService);
+          // console.log(
+          //   `*** Your password for ${
+          //     selectedService.service
+          //   } is ${decrypted.toString(CryptoJS.enc.Utf8)}***`
+          // );
         }
       }
 
