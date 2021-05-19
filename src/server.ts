@@ -4,7 +4,7 @@ dotenv.config();
 import express from "express";
 import { connectDatabase } from "./utils/database";
 
-if (process.env.MONG_URL === undefined) {
+if (process.env.MONGO_URL === undefined) {
   throw new Error("Missing env MONGO_URL");
 }
 
