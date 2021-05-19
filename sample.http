@@ -1,0 +1,8 @@
+###
+GET http://localhost:5000/api/credentials HTTP/1.1
+
+###
+POST http://localhost:5000/api/credentials HTTP/1.1 
+
+### Delete a credential
+DELETE /api/credentials/MyService HTTP/1.1
