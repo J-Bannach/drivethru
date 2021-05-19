@@ -3,14 +3,16 @@ import {
   addNewCredential,
   askForMainPassword,
   chooseCommand,
-  chooseService,
 } from "./utils/questions";
 import { isMainPasswordValid } from "./utils/validation";
-import { readCredentials, writeCredentials } from "./utils/credentials";
+import { printPassword } from './utils/messages';
+// import { readCredentials, writeCredentials } from "./utils/credentials";
 import CryptoJS from "crypto-js";
 import { connectDatabase, disconnectDatabase } from "./utils/database";
 
 dotenv.config();
+import { deleteCredential, writeCredential, selectCredential  } from "./utils/credentials";
+
 
 // function start() {
 const start = async () => {
@@ -31,39 +33,55 @@ const start = async () => {
 
   switch (command) {
     case "list":
+      case "delete":
       {
-        const credentials = await readCredentials();
-        const credentialServices = credentials.map(
-          (credential) => credential.service
-        );
-        const service = await chooseService(credentialServices);
-        const selectedService = credentials.find(
-          (credential) => credential.service === service
-        );
-
-        if (selectedService) {
-          selectedService.password = CryptoJS.AES.decrypt(
-            selectedService.password,
-            "DonaldDuck"
-          ).toString(CryptoJS.enc.Utf8);
-          console.log(selectedService);
-          // console.log(
-          //   `*** Your password for ${
-          //     selectedService.service
-          //   } is ${decrypted.toString(CryptoJS.enc.Utf8)}***`
-          // );
+        const selectedCredential = await selectCredential();
+        if (command === "list"){
+          printPassword(selectedCredential.service);
+        } else {
+          const deleted = await deleteCredential(selectedCredential);
+          if (deleted) {
+            console.log("Deleted credential");
+          } else {
+            console.log("Not deleted");
+          }
         }
       }
+        break;
+      
 
+        // const service = await chooseService(credentialServices);
+        // const selectedCredential = credentials.find(
+        //   (credential) => credential.service === service
+        // );
+
+        if (selectedCredential) {
+          selectedCredential.password = CryptoJS.AES.decrypt(
+            selectedCredential.password,
+            "DonaldDuck"
+          ).toString(CryptoJS.enc.Utf8);
+          console.log(selectedCredential);
+       
+        }
+        
+
+      }
+        }
+        
+      
+      
       break;
+    
     case "add":
       {
         const newCredential = await addNewCredential();
-        await writeCredentials(newCredential);
+        await writeCredential(newCredential);
+        console.log(newCredential);
       }
       break;
-  }
+    }
+  
   await disconnectDatabase();
-};
+  };
 
 start();
