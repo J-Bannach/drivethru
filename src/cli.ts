@@ -35,7 +35,7 @@ const start = async () => {
         if (selectedService) {
           const decrypted = CryptoJS.AES.decrypt(
             selectedService.password,
-            "DonaldDuck"
+            mainPassword
           );
           console.log(
             `*** Your password for ${

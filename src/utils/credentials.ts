@@ -1,30 +1,45 @@
-import fs from "fs/promises";
 import type { Credential } from "../types";
 import AES from "crypto-js/aes";
-
-type DB = {
-  credentials: Credential[];
-};
+import { getCredentialsCollection } from "./database";
+import { chooseService } from "./questions";
 
 export const readCredentials = async (): Promise<Credential[]> => {
-  const response = await fs.readFile("./db.json", "utf-8");
-  const data: DB = JSON.parse(response);
-  return data.credentials;
+  return await getCredentialsCollection().find().sort({ service: 1 }).toArray();
 };
 
-export const writeCredentials = async (
-  newCredential: Credential
+export const writeCredential = async (
+  newCredential: Credential,
+  mainPassword: string
 ): Promise<void> => {
-  const allCredentials = await readCredentials();
-  allCredentials.push(newCredential);
   const encrypted = AES.encrypt(
     newCredential.password,
-    "DonaldDuck"
+    mainPassword
   ).toString();
   newCredential.password = encrypted;
-  await fs.writeFile(
-    "./db.json",
-    JSON.stringify({ credentials: allCredentials }, null, 2),
-    "utf-8"
-  );
+  await getCredentialsCollection().insertOne(newCredential);
 };
+
+export const selectCredential = async (): Promise<Credential> => {
+  const credentials = await readCredentials();
+  const credentialServices = credentials.map(
+    (credential) => credential.service
+  );
+  const service = await chooseService(credentialServices);
+  const selectedCredential = credentials.find(
+    (credential) => credential.service === service
+  );
+  if (!selectedCredential) {
+    throw new Error("Can not find credential");
+  }
+  return selectedCredential;
+};
+
+// export const deleteCredential = async (service: string): Promise<boolean> => {
+//   const result = getCredentialsCollection().deleteOne({
+//     service: service,
+//   });
+//   if (result.deletedCount === undefined) {
+//     return false;
+//   }
+//   return result.deletedCount > 0;
+// };
