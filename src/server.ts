@@ -3,7 +3,11 @@ dotenv.config();
 
 import express from "express";
 import { connectDatabase } from "./utils/database";
-import { readCredentials, writeCredential } from "./utils/credentials";
+import {
+  deleteCredential,
+  readCredentials,
+  writeCredential,
+} from "./utils/credentials";
 
 if (process.env.MONGO_URL === undefined) {
   throw new Error("Missing env MONGO_URL");
@@ -24,14 +28,14 @@ app.post("/api/credentials", async (request, response) => {
   response.send("Credentials saved");
 });
 
+app.delete("/api/credentials/:service", async (request, response) => {
+  await deleteCredential(request.params.service);
+  response.send("Delete credential");
+});
+
 connectDatabase(process.env.MONGO_URL).then(() => {
   console.log("Database connected");
   app.listen(port, () => {
     console.log(`drivethru listening at http://localhost:${port}`);
   });
-});
-
-app.delete("/api/credentials/:service", (request, response) => {
-  console.log(request.params.service);
-  response.send("Delete credential");
 });

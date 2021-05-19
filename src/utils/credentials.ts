@@ -34,12 +34,12 @@ export const selectCredential = async (): Promise<Credential> => {
   return selectedCredential;
 };
 
-// export const deleteCredential = async (service: string): Promise<boolean> => {
-//   const result = getCredentialsCollection().deleteOne({
-//     service: service,
-//   });
-//   if (result.deletedCount === undefined) {
-//     return false;
-//   }
-//   return result.deletedCount > 0;
-// };
+export const deleteCredential = async (service: string): Promise<boolean> => {
+  const result = await getCredentialsCollection().deleteOne({
+    service: service,
+  });
+  if (result.deletedCount === undefined) {
+    return false;
+  }
+  return result.deletedCount > 0;
+};
