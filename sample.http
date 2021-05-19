@@ -2,8 +2,10 @@
 GET http://localhost:5000/api/credentials HTTP/1.1
 Content-Type: application/json
 
+###  Request a single credential
+GET http://localhost:5000/api/credentials/MyService
 
-###
+### Add a new credential
 POST http://localhost:5000/api/credentials HTTP/1.1 
 Content-Type: application/json
 
