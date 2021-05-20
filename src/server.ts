@@ -7,6 +7,7 @@ import {
   deleteCredential,
   readCredentials,
   writeCredential,
+  readCredential,
 } from "./utils/credentials";
 
 if (process.env.MONGO_URL === undefined) {
@@ -28,9 +29,14 @@ app.post("/api/credentials", async (request, response) => {
   response.send("Credentials saved");
 });
 
+app.get("/api/credentials/:service", async (request, response) => {
+  const credential = await readCredential(request.params.service);
+  response.json(credential);
+});
+
 app.delete("/api/credentials/:service", async (request, response) => {
   await deleteCredential(request.params.service);
-  response.send("Delete credential");
+  response.send("Credential deleted");
 });
 
 connectDatabase(process.env.MONGO_URL).then(() => {
