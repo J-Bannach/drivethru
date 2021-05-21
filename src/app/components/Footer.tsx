@@ -7,9 +7,9 @@ type FooterProps = {
 
 function Footer({ list }: FooterProps): JSX.Element {
   return (
-    <li className={styles.footer}>
-      {list} <ul>This is a footer!</ul>
-    </li>
+    <ul className={styles.footer}>
+      {list} <li>Your everyday password manager</li>
+    </ul>
   );
 }
 
