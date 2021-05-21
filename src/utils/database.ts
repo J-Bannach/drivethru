@@ -19,5 +19,5 @@ export const getCollection = <T>(name: string): Collection<T> => {
 };
 
 export const getCredentialsCollection = (): Collection<Credential> => {
-  return getCollection("credentials");
+  return getCollection<Credential>("credentials");
 };
