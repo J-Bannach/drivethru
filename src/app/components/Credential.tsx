@@ -8,8 +8,9 @@ type CredentialProps = {
 function Credential({ service }: CredentialProps): JSX.Element {
   return (
     <li className={styles.credential}>
-      {service} <button>Delete</button>
-      {service} <button>Edit</button>
+      {service} <button>Show details</button>
+      <button>Delete</button>
+      <button>Edit</button>
     </li>
   );
 }
