@@ -12,5 +12,5 @@ body {
   background-color: #d3d3d3;
   display: grid;
   grid-template-rows: 25% 50% 25%;
-  height: 100vh;
+  min-height: 100vh;
 }
