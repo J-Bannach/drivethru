@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./App.module.css";
 import Credential from "./components/Credential";
 import Hero from "./components/Hero";
@@ -35,13 +35,13 @@ function App(): JSX.Element {
   return (
     <div className={styles.App}>
       <header>
-        <h1>
+        <h1 className={styles.Hero}>
           <Hero title="Drivethru" />
         </h1>
       </header>
       <main>
         <ul>{credentialElements}</ul>
-        <footer>
+        <footer className={styles.Footer}>
           <Footer list=""></Footer>
         </footer>
       </main>
@@ -50,3 +50,48 @@ function App(): JSX.Element {
 }
 
 export default App;
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// Version with useEffect
+
+// import React, { useEffect, useState } from "react";
+// import { Credential as CredentialType } from "../types";
+// import styles from "./App.module.css";
+// import Credential from "./components/Credential";
+// import Hero from "./components/Hero";
+
+// function App(): JSX.Element {
+//   const [credentials, setCredentials] = useState<CredentialType[]>([]);
+
+//   useEffect(() => {
+//     fetch("http://localhost:5000/api/credentials")
+//     .then((response) => response.json());
+//     .then((credentials) => setCredentials(credentials));
+//   }, []);
+
+//   const credentialElements = credentials.map((credential) => (
+//     <Credential key={credential.service} credential={credential} />
+//   ));
+
+//   return (
+//     <div className={styles.App}>
+//     <header>
+//       <h1>
+//         <Hero title="Drivethru" />
+//       </h1>
+//     </header>
+//     <main>
+//       <ul>{credentialElements}</ul>
+//       <footer>
+//         <Footer list=""></Footer>
+//       </footer>
+//     </main>
+//   </div>
+//   );
+// }
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
